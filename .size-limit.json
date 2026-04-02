@@ -1,0 +1,26 @@
+[
+  {
+    "path": ".next/static/chunks/main-*.js",
+    "limit": "250 KB",
+    "gzip": true,
+    "webpack": true
+  },
+  {
+    "path": ".next/static/**/*.css",
+    "limit": "50 KB",
+    "gzip": true,
+    "webpack": true
+  },
+  {
+    "path": ".next/static/chunks/pages/index-*.js",
+    "limit": "80 KB",
+    "gzip": true,
+    "webpack": true
+  },
+  {
+    "path": ".next/static/chunks/**/*.js",
+    "limit": "150 KB",
+    "gzip": true,
+    "webpack": true
+  }
+]

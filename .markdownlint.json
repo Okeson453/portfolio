@@ -1,0 +1,15 @@
+{
+    "default": true,
+    "MD022": {
+        "lines": 1
+    },
+    "MD032": true,
+    "MD031": {
+        "list_items": true
+    },
+    "MD040": false,
+    "MD060": {
+        "tables": "consistent"
+    },
+    "MD036": false
+}

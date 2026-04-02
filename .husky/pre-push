@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running pre-push quality gate..."
+npm run type-check || { echo "❌ Type check failed. Fix errors before pushing."; exit 1; }
+npm run test:fast  || { echo "❌ Tests failed. Fix failing tests before pushing."; exit 1; }
+echo "✅ Pre-push gate passed."

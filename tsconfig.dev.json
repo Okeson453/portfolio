@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "incremental": true,
+        "tsBuildInfoFile": ".tsbuildinfo",
+        "skipLibCheck": true
+    },
+    "exclude": [
+        "node_modules",
+        ".next",
+        "e2e"
+    ]
+}

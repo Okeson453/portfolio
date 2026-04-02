@@ -1,0 +1,63 @@
+# SecureStack Portfolio — Crawl Policy
+# Last updated: April 2, 2026
+
+# ── General crawlers ──────────────────────────────────────────────────────────
+User-agent: *
+Allow: /
+Allow: /blog
+Allow: /projects
+Allow: /about
+Allow: /contact
+Allow: /experience
+Allow: /skills
+
+# Block internal/authenticated routes
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+Disallow: /api/auth/
+Disallow: /_next/
+Disallow: /.next/
+
+# Block sensitive query params (prevent duplicate content)
+Disallow: /*?preview=
+Disallow: /*?draft=
+Disallow: /*?token=
+
+# Rate limiting — be polite with servers
+Crawl-delay: 1
+
+# ── Googlebot-specific ────────────────────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Explicitly allow image crawling for Google Images
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /og/
+
+# ── AI scrapers (opt-out) ──────────────────────────────────────────────────────
+# Block AI training crawlers — does not affect search rankings
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: OpenAI
+Disallow: /
+
+User-agent: DadJokeBot
+Disallow: /
+
+# ── Sitemaps ──────────────────────────────────────────────────────────────────
+Sitemap: https://okeson.dev/sitemap.xml
+Sitemap: https://okeson.dev/sitemap-blog.xml
+Sitemap: https://okeson.dev/sitemap-projects.xml

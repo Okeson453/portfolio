@@ -1,0 +1,482 @@
+# ============================================================================
+# SecureStack Portfolio — .gitignore
+# ============================================================================
+# Comprehensive Git ignore rules for Next.js React portfolio
+# with TypeScript, Tailwind CSS, and modern development tools
+# Last Updated: March 29, 2026
+# ============================================================================
+
+
+# ============================================================================
+# SECTION 1: NODE.JS & NPM DEPENDENCIES
+# ============================================================================
+node_modules/
+npm-debug.log*
+npm-error.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+pnpm-error.log*
+.pnpm-store/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+
+# ============================================================================
+# SECTION 2: BUILD & COMPILATION OUTPUT
+# ============================================================================
+# Next.js
+.next/
+out/
+.vercel/
+.prerender-manifest.json
+
+# React & Webpack
+dist/
+build/
+.parcel-cache/
+.turbo/
+
+# TypeScript
+*.tsbuildinfo
+compiled/
+.tsc-out/
+.tsbuildinfo
+
+# Testing
+.jest-cache/
+coverage/
+.vite/
+
+# General build artifacts
+lib/
+esm/
+.cache/
+
+
+# ============================================================================
+# SECTION 3: ENVIRONMENT & CONFIGURATION (SECURITY CRITICAL)
+# ============================================================================
+# Environment files — NEVER commit these
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.*.local
+.env.*.production
+
+# Configuration files with secrets
+config/secrets.js
+config/local.js
+.config.local.json
+
+# ============================================================================
+# SECTION 3.5: TEST REPORTS & COVERAGE
+# ============================================================================
+# Jest coverage
+coverage/
+.nyc_output/
+
+# Playwright test reports
+playwright-report/
+test-results/
+
+# Lighthouse CI reports
+.lighthouseci/
+
+# ============================================================================
+# SECTION 4: IDE & EDITOR FILES
+# ============================================================================
+# Visual Studio Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.vscode-test/
+.vscode-test-e2e/
+*.vsix
+.idea/
+
+# JetBrains IDEs (WebStorm, IntelliJ IDEA, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+*.sublime-project
+*.sublime-workspace
+.jb/
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#.*\#
+.\#*
+
+# Nano
+.nano-history
+.nano_history
+
+# General editor backups
+*.bak
+*.backup
+*~
+
+
+# ============================================================================
+# SECTION 5: OPERATING SYSTEM FILES
+# ============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Icon?
+.TemporaryItems
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.shortcut
+*.stackdump
+
+# Linux
+.directory
+.Trash-*
+*.swp
+*.swo
+
+
+# ============================================================================
+# SECTION 6: LOGS & DIAGNOSTICS
+# ============================================================================
+logs/
+*.log
+*.logs
+pm2.log
+server.log
+client.log
+lerna.log
+npm-debug.log*
+debug.log
+error.log
+combined.log
+access.log
+
+
+# ============================================================================
+# SECTION 7: TESTING & CODE COVERAGE
+# ============================================================================
+coverage/
+.nyc_output/
+.coverage
+htmlcov/
+.pytest_cache/
+__pycache__/
+*.pytest_cache/
+test-results/
+test-report.html
+test-report.json
+.mocharc.json.tmp
+.jest-cache/
+.vitest/
+
+
+# ============================================================================
+# SECTION 8: DOCKER & CONTAINERIZATION
+# ============================================================================
+docker-compose.override.yml
+docker-compose.local.yml
+docker-compose.dev.yml
+.docker/
+.dockerignore-temp
+docker-build-output.log
+
+
+# ============================================================================
+# SECTION 9: TEMPORARY & CACHE FILES
+# ============================================================================
+*.tmp
+*.temp
+tmp/
+temp/
+.tmp/
+.cache/
+.turbo/
+.eslintcache
+.stylelintcache
+.prettierignore
+tsconfig.tsbuildinfo
+
+# Webpack
+dist-ssr/
+*.local
+
+
+# ============================================================================
+# SECTION 10: SENSITIVE & PRIVATE FILES
+# ============================================================================
+# Cryptographic keys
+*.pem
+*.key
+*.cert
+*.crt
+*.cer
+*.p8
+*.p12
+*.pfx
+private_key.*
+public_key.*
+id_rsa*
+id_dsa*
+id_ed25519*
+
+# Credential files
+.ssh/
+.netrc
+.git-credentials
+credentials.json
+service-account-key.json
+apikeys.json
+secrets/
+private/
+.secrets/
+
+# API keys & tokens (in comments or files)
+.api_key
+.api_keys
+.tokens
+
+
+# ============================================================================
+# SECTION 11: DEPENDENCY CACHES & PACKAGE MANAGER
+# ============================================================================
+# npm
+.npm/
+.node_gyp/
+.node-gyp/
+node_cache/
+
+# yarn
+.yarn/install-state.gz
+.yarn/cache/
+.yarn/unplugged/
+
+# pnpm
+.pnp
+.pnp.js
+pnpm-workspace.yaml~
+
+# bun
+bun.lockb
+
+# Ruby (if applicable)
+Gemfile.lock
+
+
+# ============================================================================
+# SECTION 12: PYTHON-SPECIFIC (if using Python backend)
+# ============================================================================
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Python compiled
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Testing
+.pytest_cache/
+.tox/
+.coverage
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.hypothesis/
+
+
+# ============================================================================
+# SECTION 13: CI/CD ARTIFACTS & WORKFLOWS
+# ============================================================================
+.github/workflows/temp/
+.github/artifacts/
+.circleci/artifacts/
+.circleci/cache/
+.travis-artifacts/
+.gitlab-ci-artifacts/
+ci-artifacts/
+.github/temp/
+
+# Build output from CI/CD
+ci-build-output/
+ci-test-results/
+
+
+# ============================================================================
+# SECTION 14: VERSION CONTROL & MERGE FILES
+# ============================================================================
+*.orig
+*.rej
+MERGE_*
+REBASE_*
+*.MERGE_HEAD
+
+
+# ============================================================================
+# SECTION 15: IDE AUTO-GENERATED FILES
+# ============================================================================
+.classpath
+.project
+.pydevproject
+.settings/
+.metadata/
+*.launch
+.c9/
+*.sage.py
+.factorypath
+
+
+# ============================================================================
+# SECTION 16: DOCUMENTATION BUILDS
+# ============================================================================
+# Generate site directories
+site/
+docs/_build/
+docs/.vuepress/dist/
+.vuepress/dist/
+
+# API documentation
+docs/api/generated/
+openapi-generator/
+swagger-generated/
+
+
+# ============================================================================
+# SECTION 17: GENERATED CODE (should not be committed)
+# ============================================================================
+# Prisma
+prisma/migrations/*/migration_lock.toml
+
+# GraphQL
+schema.graphql
+*.generated.ts
+*.generated.js
+
+# Protocol Buffers
+*.pb.go
+*.pb.py
+
+
+# ============================================================================
+# SECTION 18: PERFORMANCE & PROFILING
+# ============================================================================
+*.prof
+*.heap
+heapdump*.json
+cpu-profiler-*.txt
+memory-profiler-*.txt
+profiling/
+
+
+# ============================================================================
+# SECTION 19: UPLOADS & USER-GENERATED CONTENT
+# ============================================================================
+# Don't commit user uploads (typically served from cloud storage)
+public/uploads/
+uploads/
+media/
+files/
+downloads/
+static/uploads/
+user-data/
+
+
+# ============================================================================
+# SECTION 20: OS TEMPORARY
+# ============================================================================
+.venv/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+downloads/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+
+# ============================================================================
+# SECTION 21: MISCELLANEOUS PROJECT-SPECIFIC
+# ============================================================================
+# Next.js specific
+.next/
+.vercel/
+.now/
+
+# Sentry
+.sentry-release-temp/
+
+# Turbo build artifacts
+.turbo/
+.turborc
+
+# Build optimization
+.optimize-cache/
+
+# Audit reports (if generated locally)
+audit-report.json
+security-audit.json
+
+# Performance reports
+performance-report.json
+lighthouse-report.json
+
+# Misc
+.env.*.local
+.venv
+node_modules
+tsconfig.tsbuildinfo

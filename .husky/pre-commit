@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run lint-staged (blocks on lint errors, allows 5 warnings)
+npx lint-staged
+
+# Run type check asynchronously — shows errors but doesn't block commit
+# This lets developers iterate while still seeing type feedback
+if ! npx tsc --noEmit --incremental 2>/dev/null; then
+  echo ""
+  echo "⚠️  TypeScript errors detected (commit allowed for WIP)."
+  echo "   Fix before pushing: npm run type-check"
+  echo ""
+fi

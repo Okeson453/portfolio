@@ -1,0 +1,252 @@
+MIT License
+
+Copyright (c) 2024-2026 SecureStack Portfolio Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## ADDITIONAL TERMS & CONDITIONS
+
+### Purpose
+This portfolio is intended to demonstrate cybersecurity expertise, full-stack
+development capabilities, and best practices in modern web development. It
+serves as a reference implementation and educational resource.
+
+### Use Cases
+✅ Educational purposes and learning from code examples
+✅ Reference implementation for portfolio best practices
+✅ Forking and customizing for your own portfolio project
+✅ Integration into larger projects (subject to license compliance)
+✅ Security research and code review
+
+❌ Commercial use without attribution
+❌ Removal of copyright notices or license terms
+❌ Claiming the portfolio as your own work
+❌ Misleading others about authorship
+
+### Security Notice
+This portfolio demonstrates security best practices and patterns, including:
+- OWASP Top 10 protections
+- JWT authentication
+- Content Security Policy (CSP)
+- Secure API design
+- Encryption and data protection
+
+Users are responsible for:
+- Reviewing and understanding security implementations
+- Conducting security audits of their own deployments
+- Implementing environment-specific security measures
+- Following PCI-DSS and data protection regulations if handling payment data
+
+### No Warranty
+This software is provided as a portfolio/reference implementation.
+The author makes no warranties regarding suitability for production,
+security of deployments, or compliance with any regulations.
+
+### Liability
+In no event shall the author be liable for:
+- Security breaches or unauthorized access
+- Data loss or corruption
+- Compliance violations
+- Business losses or damages
+- Any indirect or consequential damages
+
+### Attribution & Credit
+If you use this portfolio or its code as a reference:
+- Credit the original author
+- Include a copy of this license
+- Document any modifications made
+- Do not claim as your own original work
+
+### Third-Party Components
+This software includes or depends on open-source libraries governed by
+their own licenses (React, Next.js, TypeScript, Tailwind CSS, etc.).
+Users must comply with all third-party license terms.
+
+### Contributions
+By contributing to this portfolio, you agree to license your contributions
+under the same MIT License terms.
+
+### Security Reporting
+If you discover a security vulnerability in this portfolio:
+- DO NOT open a public issue
+- Email: security@example.com with vulnerability details
+- Allow reasonable time for response and patching
+- Do not publicly disclose until a fix is available
+
+### Contact
+- **Portfolio**: [yourwebsite.com](https://yourwebsite.com)
+- **Email**: contact@example.com
+- **GitHub**: [@yourprofile](https://github.com/yourprofile)
+- **Security Issues**: security@example.com
+
+---
+
+For more information about the MIT License, visit: https://opensource.org/licenses/MIT
+
+**Project:** SecureStack Portfolio  
+**Version:** 1.0.0  
+**Last Updated:** March 29, 2026
+
+2.3  The Licensee agrees to take all reasonable precautions to protect the
+     confidentiality of the Software and to prevent unauthorised disclosure
+     or use. The Software shall be treated with no less care than the
+     Licensee uses to protect its own most sensitive confidential information,
+     and in no event with less than reasonable care.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARTICLE 3 — RESTRICTIONS
+
+The Licensee shall NOT, without the express prior written consent of the
+copyright holder:
+
+3.1  Copy, reproduce, republish, upload, post, transmit, or distribute the
+     Software or any part thereof in any medium or format.
+
+3.2  Sell, resell, rent, lease, transfer, assign, or commercially exploit
+     the Software or any portion thereof.
+
+3.3  Use the Software to develop any competing product, service, or trading
+     system that substantially replicates the strategy logic, methodology,
+     or architecture of the Software.
+
+3.4  Remove, obscure, or alter any proprietary notices, labels, copyright
+     markings, or trademarks on or in the Software.
+
+3.5  Use the Software in a manner that violates any applicable local,
+     national, or international law or regulation, including without
+     limitation any financial services, securities trading, or data privacy
+     regulations.
+
+3.6  Disclose, share, or communicate the Software, its strategy logic, its
+     model weights, or any material description thereof to any third party
+     without prior written authorisation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARTICLE 4 — CONFIDENTIALITY
+
+4.1  The Licensee acknowledges that the Software constitutes confidential
+     and proprietary information of the copyright holder. The Licensee agrees
+     to hold the Software in strict confidence and not to disclose it to any
+     person or entity other than those employees, contractors, or agents who
+     have a need to know for the purposes explicitly authorised under
+     Article 1, and who are bound by written confidentiality obligations no
+     less protective than those set forth herein.
+
+4.2  Confidentiality obligations shall survive the termination or expiry
+     of this Agreement for a period of five (5) years.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARTICLE 5 — DISCLAIMER OF WARRANTIES
+
+5.1  THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS
+     OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY WARRANTIES OF
+     MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT,
+     ACCURACY, OR COMPLETENESS.
+
+5.2  THE COPYRIGHT HOLDER DOES NOT WARRANT THAT THE SOFTWARE WILL OPERATE
+     UNINTERRUPTED OR ERROR-FREE, THAT DEFECTS WILL BE CORRECTED, OR THAT
+     THE SOFTWARE IS FREE OF VIRUSES, VULNERABILITIES, OR OTHER HARMFUL
+     COMPONENTS.
+
+5.3  THE SOFTWARE IS NOT FINANCIAL ADVICE. NO REPRESENTATION OR WARRANTY
+     IS MADE THAT ANY TRADING STRATEGY, SIGNAL, OR OUTPUT PRODUCED BY THE
+     SOFTWARE WILL RESULT IN PROFIT OR AVOID FINANCIAL LOSS. PAST
+     PERFORMANCE DOES NOT GUARANTEE FUTURE RESULTS.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARTICLE 6 — LIMITATION OF LIABILITY
+
+6.1  TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL
+     THE COPYRIGHT HOLDER, ITS OFFICERS, DIRECTORS, EMPLOYEES, CONTRACTORS,
+     OR AGENTS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL,
+     PUNITIVE, OR EXEMPLARY DAMAGES ARISING OUT OF OR RELATED TO THE USE OF
+     OR INABILITY TO USE THE SOFTWARE, INCLUDING WITHOUT LIMITATION ANY
+     TRADING LOSSES, LOSS OF PROFITS, LOSS OF DATA, LOSS OF GOODWILL, BUSINESS
+     INTERRUPTION, OR COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
+     EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+6.2  IN NO EVENT SHALL THE TOTAL CUMULATIVE LIABILITY OF THE COPYRIGHT HOLDER
+     UNDER THIS AGREEMENT EXCEED THE AMOUNT ACTUALLY PAID BY THE LICENSEE
+     FOR ACCESS TO THE SOFTWARE IN THE TWELVE (12) MONTHS PRECEDING THE
+     CLAIM.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARTICLE 7 — TERMINATION
+
+7.1  This licence is effective until terminated. The copyright holder may
+     terminate this Agreement immediately upon written notice if the Licensee
+     breaches any provision of this Agreement.
+
+7.2  Upon termination, the Licensee must immediately cease all use of the
+     Software and destroy or return all copies of the Software in its
+     possession or control, including all source code, compiled binaries,
+     model weights, documentation, and any derivative materials.
+
+7.3  Provisions of this Agreement that by their nature should survive
+     termination shall survive, including without limitation Articles 2, 4,
+     5, 6, and 8.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARTICLE 8 — GOVERNING LAW & DISPUTE RESOLUTION
+
+8.1  This Agreement shall be governed by and construed in accordance with
+     the laws of the jurisdiction in which the copyright holder is
+     incorporated, without regard to its conflict of law provisions.
+
+8.2  Any dispute arising out of or in connection with this Agreement shall
+     be submitted to the exclusive jurisdiction of the courts of the
+     copyright holder's jurisdiction.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ARTICLE 9 — ENTIRE AGREEMENT
+
+9.1  This Agreement constitutes the entire agreement between the parties
+     with respect to the subject matter hereof and supersedes all prior
+     or contemporaneous understandings, negotiations, representations, and
+     agreements, whether written or oral.
+
+9.2  No amendment or modification of this Agreement shall be effective
+     unless in writing and signed by an authorised representative of the
+     copyright holder.
+
+9.3  If any provision of this Agreement is held invalid, illegal, or
+     unenforceable, the remaining provisions shall continue in full force
+     and effect.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ALL RIGHTS RESERVED.
+
+For licensing enquiries, authorisation requests, or to report a violation:
+Contact the repository maintainer via private channel.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+Copyright (c) 2024. All Rights Reserved.
+Confidential & Proprietary. Not financial software.

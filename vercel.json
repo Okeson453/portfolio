@@ -1,0 +1,47 @@
+{
+    "buildCommand": "npm ci && npm run build",
+    "devCommand": "npm run dev -- --turbopack",
+    "installCommand": "npm ci",
+    "framework": "nextjs",
+    "outputDirectory": ".next",
+    "crons": [
+        {
+            "path": "/api/cron/blog-publish",
+            "schedule": "0 */6 * * *"
+        },
+        {
+            "path": "/api/cron/social-media-share",
+            "schedule": "0 9,15 * * *"
+        }
+    ],
+    "env": {
+        "NEXT_PUBLIC_APP_URL": {
+            "description": "Application URL",
+            "required": true
+        },
+        "NEXT_PUBLIC_API_URL": {
+            "description": "API endpoint URL",
+            "required": true
+        },
+        "NEXT_PUBLIC_SITE_URL": {
+            "description": "Site URL for links in emails",
+            "required": true
+        },
+        "JWT_SECRET": {
+            "description": "JWT secret key (generate with: openssl rand -hex 32)",
+            "required": true
+        },
+        "CRON_SECRET": {
+            "description": "Secret for cron job authentication",
+            "required": false
+        },
+        "RESEND_API_KEY": {
+            "description": "Resend API key for email sending",
+            "required": true
+        },
+        "RESEND_FROM_EMAIL": {
+            "description": "Email address to send from",
+            "required": true
+        }
+    }
+}
