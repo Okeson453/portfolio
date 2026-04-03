@@ -1,269 +1,135 @@
-/**
- * About Component
- *
- * Enterprise-grade About page establishing E-E-A-T signals:
- * - Experience: Years of professional background
- * - Expertise: Demonstrated technical skills
- * - Authoritativeness: Credentials, publications, recognition
- * - Trustworthiness: Testimonials, verifiable achievements
- */
+import Image from 'next/image';
+import { CheckCircle, Globe, Cpu, Lock } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/Card';
 
-import Link from 'next/link';
-import { siteConfig } from '@/lib/seo';
-import { 
-  generatePersonSchema, 
-  generateBreadcrumbSchema, 
-  SchemaScript 
-} from '@/lib/schema';
+const expertise = [
+  'Web Application Security',
+  'Cloud Infrastructure',
+  'Penetration Testing',
+  'Secure Code Review',
+  'Incident Response',
+  'DevSecOps Implementation',
+  'API Security',
+  'Cryptography',
+];
 
-const BASE_URL = siteConfig.url;
+const technologies = [
+  { icon: Globe, label: 'Next.js & React' },
+  { icon: Cpu, label: 'Node.js & Python' },
+  { icon: Lock, label: 'OWASP Tools' },
+  { icon: CheckCircle, label: 'Security Frameworks' },
+];
 
 export function About() {
-  const breadcrumbs = [
-    { name: 'Home', url: BASE_URL },
-    { name: 'About', url: `${BASE_URL}/about` },
-  ];
-
-  const credentials = [
-    { cert: 'CEH', issuer: 'EC-Council', issued: '2023', url: '#' },
-    { cert: 'OSCP', issuer: 'Offensive Security', issued: '2024', url: '#' },
-  ];
-
-  const expertise = [
-    {
-      title: 'CVE Research & Disclosure',
-      description: 'Reported 5+ CVEs in security tooling and web frameworks. All disclosures responsibly published through vendor coordination. Recognized in CVE advisory databases.',
-      achievement: 'CVE-2024-XXXXX, CVE-2024-YYYYY',
-    },
-    {
-      title: 'Open Source Security Contributions',
-      description: 'Active maintainer and contributor to security-focused open source projects. Projects have 500+ GitHub stars and are used by enterprises for threat detection and vulnerability scanning.',
-      achievement: '500+ stars · Used by 50+ organizations',
-    },
-    {
-      title: 'Publications & Technical Speaking',
-      description: 'Published security research articles on advanced threat intelligence, zero-trust architecture, and secure development practices. Speaking engagements at security conferences.',
-      achievement: 'Published on: Medium, InfoQ, Dev.to · Spoke at: DEF CON Village, BSides',
-    },
-    {
-      title: 'Enterprise Security Architecture',
-      description: 'Designed and implemented zero-trust security architectures protecting $100M+ in digital assets. Implemented threat detection systems for distributed teams spanning 5 continents.',
-      achievement: 'Protected $100M+ in assets · 99.99% uptime',
-    },
-  ];
-
-  const testimonials = [
-    {
-      quote: 'Okeson brings a security-first mindset to every project. Their architectural decisions consistently prevent vulnerabilities before they occur, saving us from costly incidents.',
-      author: 'Sarah Chen',
-      role: 'VP of Engineering',
-      company: 'FinTech Startup',
-      linkedin: 'https://linkedin.com/in/sarahchen',
-    },
-    {
-      quote: 'Working with Okeson on our DevSecOps transformation was transformative. They reduced our deployment time by 40% while improving our security posture across all environments.',
-      author: 'Marcus Johnson',
-      role: 'CISO',
-      company: 'Fortune 500 Tech Company',
-      linkedin: 'https://linkedin.com/in/marcusjohnson',
-    },
-    {
-      quote: 'Okeson\'s ability to explain complex security concepts to non-technical stakeholders is exceptional. They\'re equally comfortable deep in the codebase or presenting to the board.',
-      author: 'Elena Rodriguez',
-      role: 'CEO',
-      company: 'Enterprise SaaS Platform',
-      linkedin: 'https://linkedin.com/in/elenarod',
-    },
-  ];
-
   return (
-    <>
-      <SchemaScript 
-        schema={[
-          generatePersonSchema(), 
-          generateBreadcrumbSchema(breadcrumbs)
-        ]} 
-      />
+    <section id="about" className="py-20 bg-gray-50 dark:bg-gray-900/50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-gray-900 dark:text-white">About</span>{' '}
+            <span className="text-blue-500">Me</span>
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+            Cybersecurity expert with a passion for building secure, scalable
+            applications that protect digital assets and user data.
+          </p>
+        </div>
 
-      <main className="min-h-screen pt-20 pb-20">
-        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          {/* ──────────────────────────────────────────────────────────────── */}
-          {/* SECTION 1: Positioning & Authority Statement */}
-          {/* ──────────────────────────────────────────────────────────────── */}
-          <section className="mb-16">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6 dark:text-white">
-              Senior Systems Security Engineer &amp; Full-Stack Developer
-            </h1>
-
-            {/* Elevator pitch — answers "why you?" */}
-            <div className="prose prose-invert max-w-none mb-8">
-              <p className="text-xl text-gray-300 leading-relaxed mb-4">
-                I help organizations build secure, observable applications that withstand modern threat landscapes. 
-                With {new Date().getFullYear() - 2019}+ years specializing in threat intelligence, vulnerability research, 
-                and OWASP-compliant development, I've designed security architectures protecting millions in digital assets 
-                and implemented DevSecOps practices across distributed teams.
-              </p>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Profile Image */}
+          <div className="relative">
+            <div className="relative aspect-square max-w-md mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl transform rotate-6" />
+              <div className="relative rounded-3xl overflow-hidden border-8 border-white dark:border-gray-900 shadow-2xl transform -rotate-3 hover:rotate-0 transition-transform duration-500">
+                <Image
+                  src="/images/profile.jpg"
+                  alt="Professional profile photo - Cybersecurity specialist and full-stack developer"
+                  width={500}
+                  height={500}
+                  unoptimized
+                  className="w-full h-full object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              </div>
             </div>
 
-            {/* Credentials — E-E-A-T signal above the fold */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {credentials.map(cred => (
-                <span 
-                  key={cred.cert} 
-                  className="inline-block px-3 py-1 bg-blue-600/20 border border-blue-500/50 rounded-full text-sm font-medium text-blue-300"
-                  title={`Certified by ${cred.issuer}`}
+            {/* Tech Badges */}
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              {technologies.map((tech, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700"
                 >
-                  {cred.cert}
-                </span>
-              ))}
-            </div>
-          </section>
-
-          {/* ──────────────────────────────────────────────────────────────── */}
-          {/* SECTION 2: Technical Expertise Stack */}
-          {/* ──────────────────────────────────────────────────────────────── */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-6 dark:text-white">Technical Expertise</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-bold text-white mb-2">Security &amp; Architecture</h3>
-                <ul className="space-y-1 text-gray-300 text-sm">
-                  <li>• Zero-Trust Architecture &amp; Implementation</li>
-                  <li>• Threat Modeling &amp; Risk Assessment</li>
-                  <li>• OWASP Top 10 Mitigation</li>
-                  <li>• Vulnerability Assessment &amp; Penetration Testing</li>
-                  <li>• Cloud Security (AWS, GCP, Azure)</li>
-                  <li>• DevSecOps &amp; CI/CD Security</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-bold text-white mb-2">Full-Stack Development</h3>
-                <ul className="space-y-1 text-gray-300 text-sm">
-                  <li>• React 19 &amp; Next.js 15</li>
-                  <li>• TypeScript &amp; Node.js</li>
-                  <li>• PostgreSQL &amp; Database Design</li>
-                  <li>• REST &amp; GraphQL APIs</li>
-                  <li>• System Design &amp; Scalability</li>
-                  <li>• Performance Optimization</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* ──────────────────────────────────────────────────────────────── */}
-          {/* SECTION 3: Demonstrated Expertise (Proof, not claims) */}
-          {/* ──────────────────────────────────────────────────────────────── */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-6 dark:text-white">Demonstrated Expertise &amp; Achievements</h2>
-            
-            <div className="space-y-6">
-              {expertise.map((item, idx) => (
-                <div key={idx} className="border-l-2 border-blue-500 pl-6 py-2">
-                  <h3 className="font-bold text-white mb-1">{item.title}</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed mb-2">{item.description}</p>
-                  {item.achievement && (
-                    <p className="text-xs text-blue-400 font-semibold">✓ {item.achievement}</p>
-                  )}
+                  <tech.icon className="h-4 w-4 text-blue-500" />
+                  <span className="text-sm font-medium">{tech.label}</span>
                 </div>
               ))}
             </div>
-          </section>
+          </div>
 
-          {/* ──────────────────────────────────────────────────────────────── */}
-          {/* SECTION 4: Social Proof (Testimonials) */}
-          {/* ──────────────────────────────────────────────────────────────── */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-6 dark:text-white">What People Say</h2>
-            
-            <div className="space-y-6">
-              {testimonials.map((testimonial, idx) => (
-                <blockquote 
-                  key={idx}
-                  className="border-l-4 border-blue-500 pl-6 py-2 bg-slate-900/50 p-4 rounded"
-                >
-                  <p className="italic text-gray-300 mb-4">"{testimonial.quote}"</p>
-                  <footer className="text-sm">
-                    <a 
-                      href={testimonial.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-400 hover:underline font-semibold"
-                    >
-                      {testimonial.author}
-                    </a>
-                    <span className="text-gray-400 block">{testimonial.role}, {testimonial.company}</span>
-                  </footer>
-                </blockquote>
-              ))}
+          {/* Content */}
+          <div>
+            <Card className="border-0 shadow-xl bg-white dark:bg-gray-900">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+                  Secure Development Expertise
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+                  With over 5 years of experience in cybersecurity and full-stack
+                  development, I specialize in creating applications that are not
+                  only functional and beautiful but also secure by design. My
+                  approach combines modern development practices with security-first
+                  principles.
+                </p>
+
+                <div className="mb-8">
+                  <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+                    Core Expertise
+                  </h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    {expertise.map((item, index) => (
+                      <div key={index} className="flex items-center gap-3">
+                        <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20">
+                    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                      5+
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                      Years Experience
+                    </div>
+                  </div>
+                  <div className="text-center p-4 rounded-xl bg-green-50 dark:bg-green-900/20">
+                    <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+                      100+
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                      Projects Secured
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Quote */}
+            <div className="mt-8 p-6 border-l-4 border-blue-500 bg-blue-50/50 dark:bg-blue-900/10 rounded-r-lg">
+              <p className="text-gray-700 dark:text-gray-300 italic">
+                "Security isn't a feature—it's a foundation. Every line of code
+                should be written with protection in mind."
+              </p>
             </div>
-          </section>
-
-          {/* ──────────────────────────────────────────────────────────────── */}
-          {/* SECTION 5: sameAs Entity Links (for entity verification) */}
-          {/* ──────────────────────────────────────────────────────────────── */}
-          <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-6 dark:text-white">Find Me Online</h2>
-            
-            <nav aria-label="Professional profiles" className="space-y-3">
-              <div>
-                <a 
-                  href={siteConfig.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer me"
-                  className="text-blue-400 hover:underline font-medium inline-flex items-center gap-2"
-                >
-                  LinkedIn Profile
-                  <span className="text-xs text-gray-500">↗</span>
-                </a>
-                <p className="text-xs text-gray-500 mt-1">Professional network • 500+ connections</p>
-              </div>
-
-              <div>
-                <a 
-                  href={siteConfig.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer me"
-                  className="text-blue-400 hover:underline font-medium inline-flex items-center gap-2"
-                >
-                  GitHub Profile
-                  <span className="text-xs text-gray-500">↗</span>
-                </a>
-                <p className="text-xs text-gray-500 mt-1">100+ public repositories • Active open source contributor</p>
-              </div>
-
-              <div>
-                <a 
-                  href={`mailto:${siteConfig.email}`}
-                  className="text-blue-400 hover:underline font-medium inline-flex items-center gap-2"
-                >
-                  Email
-                  <span className="text-xs text-gray-500">→</span>
-                </a>
-                <p className="text-xs text-gray-500 mt-1">Get in touch for consulting or collaboration</p>
-              </div>
-            </nav>
-          </section>
-
-          {/* ──────────────────────────────────────────────────────────────── */}
-          {/* SECTION 6: Call-to-Action */}
-          {/* ──────────────────────────────────────────────────────────────── */}
-          <section className="mt-16 p-8 rounded-lg border border-blue-500/30 bg-blue-950/20">
-            <h2 className="text-xl font-bold mb-3 dark:text-white">Interested in Working Together?</h2>
-            <p className="text-gray-300 mb-4">
-              Whether you need security consultation, architecture review, or full-stack development, I'm available for projects.
-            </p>
-            <Link 
-              href="/contact"
-              className="inline-block px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded transition-colors"
-            >
-              Get in Touch
-            </Link>
-          </section>
-        </article>
-      </main>
-    </>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

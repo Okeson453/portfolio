@@ -12,7 +12,7 @@
     "6379": { "label": "Redis", "onAutoForward": "silent" },
     "5555": { "label": "Prisma Studio", "onAutoForward": "silent" }
   },
-  "postCreateCommand": "npm install && npm run setup:env && npm run db:up",
+  "postCreateCommand": "npm install && npm run setup:env && npm run db:up && npm run db:migrate",
   "customizations": {
     "vscode": {
       "extensions": [

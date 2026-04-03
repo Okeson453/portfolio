@@ -2,7 +2,7 @@
 
 A modern, high-performance portfolio website showcasing **cybersecurity expertise** and **full-stack development capabilities** with interactive security tools and enterprise-grade architecture.
 
-**Live Demo:** [Deploy on Vercel]  
+**Live Demo:** Coming soon  
 **Grade:** B+ (7.8/10) · **Performance:** LCP ~850ms → optimizing to 600ms
 
 ---
@@ -72,14 +72,13 @@ SecureStack is a production-ready portfolio built with **React 19**, **Next.js 1
 - **React** 19.0.0 - UI framework
 - **Next.js** 15.1.7 - React framework with SSR, ISR, streaming
 - **TypeScript** 5.x - Type-safe JavaScript
-- **Tailwind CSS** 4.0 - Utility-first CSS framework
+- **Tailwind CSS** 3.4 - Utility-first CSS framework
 - **Turbopack** - Lightning-fast build tool
 
 ### UI & Components
 - **Radix UI** - Headless UI primitives
 - **shadcn/ui** - Pre-built component library
 - **Lucide Icons** - Beautiful icon set
-- **Framer Motion** 11.18.2 - Animation library (to be optimized)
 
 ### Forms & Validation
 - **React Hook Form** 7.71.1 - Efficient form handling
@@ -338,11 +337,11 @@ See `docker-compose.yml` for full configuration.
 Set these in your deployment platform:
 
 ```
-NEXT_PUBLIC_APP_URL=https://yourdomain.com
-EMAILJS_SERVICE_ID=your_service_id
-EMAILJS_TEMPLATE_ID=your_template_id
-EMAILJS_PUBLIC_KEY=your_public_key
-JWT_SECRET=your_secure_secret_key
+NEXT_PUBLIC_APP_URL=https://your-production-domain.com
+EMAILJS_SERVICE_ID=your_emailjs_service_id
+EMAILJS_TEMPLATE_ID=your_emailjs_template_id
+EMAILJS_PUBLIC_KEY=your_emailjs_public_key
+JWT_SECRET=your_super_secret_jwt_key_here
 ```
 
 ---
@@ -361,13 +360,13 @@ JWT_SECRET=your_secure_secret_key
 
 ### Optimization Roadmap (In Progress)
 
-- [ ] Remove Framer Motion (-35KB) → Replace with CSS animations
+- [ ] Remove unused CSS → Reduce stylesheet size
 - [ ] Fix hero image CLS → Add explicit width/height
 - [ ] Inline critical CSS → Reduce render-blocking
 - [ ] Implement Partial Prerendering (PPR) → Hybrid caching
 - [ ] Add HTTP/3 support → Faster connection
 
-See `ENTERPRISE_AUDIT_REPORT_COMPLETE.md` for detailed performance analysis.
+See [Deployment Checklist](./docs/deployment-checklist.md) for detailed deployment information.
 
 ---
 
@@ -426,7 +425,7 @@ See [ENTERPRISE_AUDIT_REPORT_COMPLETE.md](./ENTERPRISE_AUDIT_REPORT_COMPLETE.md)
 
 ### Reporting Vulnerabilities
 
-If you discover a security vulnerability, please email security@example.com instead of using the issue tracker.
+If you discover a security vulnerability, please email security@example.com (replace with your email) instead of using the issue tracker.
 
 ---
 
@@ -458,10 +457,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **Email**: your-email@example.com
+- **Email**: your.professional.email@example.com
 - **LinkedIn**: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
-- **GitHub**: [@yourprofile](https://github.com/yourprofile)
-- **Website**: [yourdomain.com](https://yourdomain.com)
+- **GitHub**: [@Okeson453](https://github.com/Okeson453)
+- **Website**: Coming soon
 
 ---
 

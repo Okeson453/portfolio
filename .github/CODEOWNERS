@@ -1,0 +1,8 @@
+# Default owner for all files
+* @Okeson453
+
+# Security-critical files require careful review
+middleware.ts @Okeson453
+lib/auth/ @Okeson453
+lib/security/ @Okeson453
+prisma/ @Okeson453

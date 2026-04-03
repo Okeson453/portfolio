@@ -1,33 +1,28 @@
 ## Summary
-<!-- What does this PR do? Why is it needed? -->
+Brief description of changes.
 
-## Changes
-<!-- List key changes. Be specific. -->
+## Type of Change
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Refactor
+- [ ] Documentation
+- [ ] Performance improvement
+- [ ] Dependency update
 
 ## Testing
-<!-- How did you test this? -->
+- [ ] `npm run type-check` passes
+- [ ] `npm run lint` passes (zero warnings)
+- [ ] `npm run test:ci` passes with coverage ≥70%
+- [ ] `npm run build` succeeds
+- [ ] Tested in Chrome and mobile viewport
 
----
+## Accessibility
+- [ ] New UI components have appropriate ARIA labels
+- [ ] Keyboard navigation works for interactive elements
+- [ ] Color contrast meets WCAG AA (4.5:1 minimum)
 
-## ✅ Pre-merge Checklist
-
-### Code Quality
-- [ ] `npm run type-check` — 0 errors
-- [ ] `npm run lint` — 0 warnings
-- [ ] `npm run test:fast` — all pass
-
-### If adding a new component
-- [ ] Wrapped with `memo()` if props are stable
-- [ ] `displayName` set
-- [ ] No new `any` types
-
-### If adding an API route
-- [ ] Uses `withErrorHandling` wrapper
-- [ ] Request body validated with Zod schema
-- [ ] Rate limiting applied
-
-### If modifying env vars
-- [ ] `.env.example` updated with documentation
+## Screenshots (if UI changes)
+Before / After
 - [ ] `scripts/validate-env.js` updated
 - [ ] `SETUP.md` updated if setup flow changes
 
