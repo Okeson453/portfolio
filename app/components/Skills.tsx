@@ -47,7 +47,7 @@ export function Skills() {
                 : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                 }`}
               role="tab"
-              aria-selected={activeCategory === category ? 'true' : 'false'}
+              aria-selected={activeCategory === category}
               aria-controls={`${category.toLowerCase()}-panel`}
               aria-label={`Filter skills by ${category} category`}
             >
@@ -103,14 +103,14 @@ export function Skills() {
                     </div>
                   </div>
 
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
                     {skill.description}
                   </p>
 
                   {/* Skill Level Indicator */}
                   {skill.proficiency !== undefined && (
                     <div className="space-y-2">
-                      <div className="flex justify-between text-xs text-gray-500">
+                      <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400">
                         <span>Proficiency</span>
                         <span>{skill.proficiency}%</span>
                       </div>

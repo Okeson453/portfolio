@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, type NextResponse as NextResponseType } from 'next/server';
 import { prisma } from '@/lib/db';
 import { Resend } from 'resend';
+import { withErrorHandling, createSuccessResponse, ApiError } from '@/lib/api/errorHandler';
 import { z } from 'zod';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -15,72 +16,57 @@ const subscribeSchema = z.object({
  * POST /api/blog/subscribe
  * Subscribe to blog updates
  */
-export async function POST(request: NextRequest) {
-    try {
-        const json = await request.json();
-        const { email, name, preferences } = subscribeSchema.parse(json);
+export const POST = withErrorHandling(async (request: NextRequest): Promise<NextResponseType> => {
+    const json = await request.json();
+    const { email, name, preferences } = subscribeSchema.parse(json);
 
-        // Check if already subscribed
-        const existingSubscriber = await prisma.emailSubscriber.findUnique({
-            where: { email },
-        });
+    // Check if already subscribed
+    const existingSubscriber = await prisma.emailSubscriber.findUnique({
+        where: { email },
+    });
 
-        if (existingSubscriber) {
-            if (existingSubscriber.status === 'active' && existingSubscriber.verifiedAt) {
-                return NextResponse.json(
-                    { message: 'Already subscribed', subscriber: existingSubscriber },
-                    { status: 200 }
-                );
-            } else if (existingSubscriber.status === 'unsubscribed') {
-                // Reactivate subscription
-                await prisma.emailSubscriber.update({
-                    where: { email },
-                    data: {
-                        status: 'active',
-                        name,
-                        preferences: preferences || [],
-                    },
-                });
+    if (existingSubscriber) {
+        if (existingSubscriber.status === 'active' && existingSubscriber.verifiedAt) {
+            return createSuccessResponse({ message: 'Already subscribed', subscriber: existingSubscriber });
+        } else if (existingSubscriber.status === 'unsubscribed') {
+            // Reactivate subscription
+            await prisma.emailSubscriber.update({
+                where: { email },
+                data: {
+                    status: 'active',
+                    name,
+                    preferences: preferences || [],
+                },
+            });
 
-                return NextResponse.json(
-                    { message: 'Resubscribed successfully' },
-                    { status: 200 }
-                );
-            }
+            return createSuccessResponse({ message: 'Resubscribed successfully' });
         }
-
-        // Generate verification token
-        const verificationToken = Buffer.from(`${email}:${Date.now()}`).toString('base64');
-        const verificationTokenExpiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-
-        // Create new subscriber
-        const subscriber = await prisma.emailSubscriber.create({
-            data: {
-                email,
-                name: name || undefined,
-                preferences: preferences || [],
-                status: 'active', // Auto-activate for simplicity, set to pending for stricter verification
-                verificationToken,
-                verificationTokenExpiresAt,
-            },
-        });
-
-        // Send verification email
-        await sendVerificationEmail(email, name, verificationToken);
-
-        return NextResponse.json(
-            { message: 'Subscribed successfully. Check your email for verification.', subscriber },
-            { status: 201 }
-        );
-    } catch (error) {
-        if (error instanceof z.ZodError) {
-            return NextResponse.json({ error: error.errors }, { status: 400 });
-        }
-
-        console.error('Subscription error:', error);
-        return NextResponse.json({ error: 'Failed to subscribe' }, { status: 500 });
     }
-}
+
+    // Generate verification token
+    const verificationToken = Buffer.from(`${email}:${Date.now()}`).toString('base64');
+    const verificationTokenExpiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+    // Create new subscriber
+    const subscriber = await prisma.emailSubscriber.create({
+        data: {
+            email,
+            name: name || undefined,
+            preferences: preferences || [],
+            status: 'active',
+            verificationToken,
+            verificationTokenExpiresAt,
+        },
+    });
+
+    // Send verification email
+    await sendVerificationEmail(email, name, verificationToken);
+
+    return createSuccessResponse(
+        { message: 'Subscribed successfully. Check your email for verification.', subscriber },
+        201
+    );
+});
 
 /**
  * POST /api/blog/subscribe/verify

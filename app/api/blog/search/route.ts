@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, type NextResponse as NextResponseType } from 'next/server';
+import { withErrorHandling, createSuccessResponse, ApiError } from '@/lib/api/errorHandler';
 
 /**
  * GET /api/blog/search
@@ -7,17 +8,13 @@ import { NextRequest, NextResponse } from 'next/server';
  *   - q: search query (required)
  *   - limit: max results (default: 10)
  */
-export async function GET(request: NextRequest) {
-    try {
+export const GET = withErrorHandling(async (request: NextRequest): Promise<NextResponseType> => {
         const searchParams = request.nextUrl.searchParams;
         const query = searchParams.get('q')?.toLowerCase() || '';
         const limit = parseInt(searchParams.get('limit') || '10');
 
         if (!query || query.length < 2) {
-            return NextResponse.json(
-                { error: 'Query must be at least 2 characters' },
-                { status: 400 }
-            );
+            throw ApiError.badRequest('Query must be at least 2 characters');
         }
 
         // Mock blog posts (replace with database/search engine)
@@ -91,19 +88,9 @@ export async function GET(request: NextRequest) {
             };
         });
 
-        return NextResponse.json(
-            {
-                query,
-                results: highlighted,
-                total: results.length,
-            },
-            { status: 200 }
-        );
-    } catch (error) {
-        console.error('Error searching blog:', error);
-        return NextResponse.json(
-            { error: 'Failed to search blog posts' },
-            { status: 500 }
-        );
-    }
-}
+        return createSuccessResponse({
+            query,
+            results: highlighted,
+            total: results.length,
+        });
+});

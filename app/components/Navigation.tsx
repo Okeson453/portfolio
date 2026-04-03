@@ -73,6 +73,34 @@ export default function Navigation() {
     }
   }
 
+  // Keyboard navigation for dropdown menus
+  const handleDropdownKeyDown = (
+    event: React.KeyboardEvent,
+    menuOpen: boolean,
+    setMenuOpen: (open: boolean) => void,
+    menuItems: NodeListOf<Element> | HTMLElement[]
+  ): void => {
+    if (!menuOpen) {
+      if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        setMenuOpen(true)
+        // Focus first menu item after render
+        setTimeout(() => {
+          const firstItem = (menuItems as any).length > 0 ? (menuItems as any)[0] : null
+          if (firstItem && typeof firstItem.focus === 'function') {
+            firstItem.focus()
+          }
+        }, 0)
+      }
+    } else {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        setMenuOpen(false)
+        ;(event.target as HTMLElement).focus()
+      }
+    }
+  }
+
   const navItems = [
     { name: 'Home', href: '/', icon: Home, description: 'Dashboard' },
     { name: 'About', href: '/about', icon: User, description: 'About Me' },

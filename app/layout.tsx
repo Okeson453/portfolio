@@ -131,8 +131,26 @@ export default function RootLayout({
     >
       <head>
         {/* ═══════════════════════════════════════════════════════════ */}
-        {/* PERFORMANCE OPTIMIZATION: Resource Hints */}
+        {/* PERFORMANCE OPTIMIZATION: Resource Hints & Preload */}
         {/* ═══════════════════════════════════════════════════════════ */}
+
+        {/* Critical Images - Preload hero and profile images */}
+        <link 
+          rel="preload" 
+          as="image" 
+          href="/images/hero-bg.webp" 
+          type="image/webp"
+        />
+        <link 
+          rel="preload" 
+          as="image" 
+          href="/images/profile.jpg" 
+          type="image/jpeg"
+          imagesrcset="/images/profile-sm.jpg 640w, /images/profile-md.jpg 1024w, /images/profile.jpg 1440w"
+        />
+
+        {/* Font Preload - System fonts via CSS variables (no external downloads) */}
+        {/* Note: Using system fonts, no external font preload needed */}
 
         {/* RSS Feed Link */}
         <link 

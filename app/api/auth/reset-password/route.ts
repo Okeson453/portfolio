@@ -1,41 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, type NextResponse as NextResponseType } from 'next/server';
 import { resetPasswordSchema } from '@/lib/validators/authSchema';
 import { validateResetToken, resetPassword } from '@/lib/auth/passwordReset';
+import { withErrorHandling, createSuccessResponse, ApiError } from '@/lib/api/errorHandler';
 import { ZodError } from 'zod';
 
 export const runtime = 'edge';
 
-export async function POST(req: NextRequest) {
-    try {
-        const body = await req.json();
-        const validated = resetPasswordSchema.parse(body);
+export const POST = withErrorHandling(async (req: NextRequest): Promise<NextResponseType> => {
+    const body = await req.json();
+    const validated = resetPasswordSchema.parse(body);
 
-        // Validate token
-        const userId = await validateResetToken(validated.token);
-        if (!userId) {
-            return NextResponse.json(
-                { error: 'Invalid or expired reset token' },
-                { status: 400 }
-            );
-        }
-
-        // Reset password
-        await resetPassword(validated.token, validated.password);
-
-        return NextResponse.json({ success: true });
-    } catch (err) {
-        console.error('[/api/auth/reset-password]', err);
-
-        if (err instanceof ZodError) {
-            return NextResponse.json(
-                { error: 'Validation error' },
-                { status: 400 }
-            );
-        }
-
-        return NextResponse.json(
-            { error: 'Password reset failed' },
-            { status: 500 }
-        );
+    // Validate token
+    const userId = await validateResetToken(validated.token);
+    if (!userId) {
+        throw ApiError.badRequest('Invalid or expired reset token');
     }
-}
+
+    // Reset password
+    await resetPassword(validated.token, validated.password);
+
+    return createSuccessResponse({ success: true });
+});

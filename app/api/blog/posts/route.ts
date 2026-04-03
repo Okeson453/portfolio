@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { withErrorHandling, createSuccessResponse, ApiError } from '@/lib/api/errorHandler';
 
 /**
  * GET /api/blog/posts
@@ -8,8 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
  *   - limit: number of posts per page (default: 10)
  *   - category: filter by category
  */
-export async function GET(request: NextRequest) {
-  try {
+export const GET = withErrorHandling(async (request: NextRequest): Promise<NextResponse> => {
     const searchParams = request.nextUrl.searchParams;
     const cursor = searchParams.get('cursor');
     const limit = parseInt(searchParams.get('limit') || '10');
@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
     const hasMore = startIndex + limit < posts.length;
     const nextCursor = hasMore ? pageData[pageData.length - 1]?.id : null;
 
-    return NextResponse.json(
+    return createSuccessResponse(
       {
         data: pageData,
         pagination: {
@@ -99,14 +99,6 @@ export async function GET(request: NextRequest) {
           total: posts.length,
           limit,
         },
-      },
-      { status: 200 }
+      }
     );
-  } catch (error) {
-    console.error('Error fetching blog posts:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch blog posts' },
-      { status: 500 }
-    );
-  }
-}
+});

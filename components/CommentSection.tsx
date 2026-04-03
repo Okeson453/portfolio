@@ -19,7 +19,7 @@ interface Comment {
 export function CommentSection({ postId }: { postId: string }) {
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [isLoadingComments, setIsLoadingComments] = useState(true);
     const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
@@ -31,10 +31,10 @@ export function CommentSection({ postId }: { postId: string }) {
             const response = await fetch(`/api/comments?postId=${postId}`);
             const data = await response.json();
             setComments(data.comments || []);
-            setLoading(false);
+            setIsLoadingComments(false);
         } catch (error) {
             toast.error('Failed to load comments');
-            setLoading(false);
+            setIsLoadingComments(false);
         }
     };
 

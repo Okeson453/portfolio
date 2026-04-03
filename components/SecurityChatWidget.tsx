@@ -21,7 +21,7 @@ export function SecurityChatWidget() {
         },
     ]);
     const [input, setInput] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [isGeneratingResponse, setIsGeneratingResponse] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
@@ -44,7 +44,7 @@ export function SecurityChatWidget() {
 
         setMessages((prev) => [...prev, userMessage]);
         setInput('');
-        setLoading(true);
+        setIsGeneratingResponse(true);
 
         try {
             const response = await fetch('/api/chat', {
@@ -75,7 +75,7 @@ export function SecurityChatWidget() {
             };
             setMessages((prev) => [...prev, errorMessage]);
         } finally {
-            setLoading(false);
+            setIsGeneratingResponse(false);
         }
     };
 
@@ -98,7 +98,7 @@ export function SecurityChatWidget() {
                         </div>
                     </div>
                 ))}
-                {loading && (
+                {isGeneratingResponse && (
                     <div className="flex justify-start">
                         <Loader className="h-4 w-4 animate-spin text-cyber-green" />
                     </div>
@@ -121,7 +121,7 @@ export function SecurityChatWidget() {
                     />
                     <Button
                         onClick={handleSend}
-                        disabled={loading || !input.trim()}
+                        disabled={isGeneratingResponse || !input.trim()}
                         className="bg-cyber-green hover:bg-cyber-green/90"
                     >
                         <Send className="h-4 w-4" />

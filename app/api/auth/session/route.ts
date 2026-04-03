@@ -1,30 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, type NextResponse as NextResponseType } from 'next/server'
+import { withErrorHandling, createSuccessResponse, ApiError } from '@/lib/api/errorHandler'
 
-export async function GET(request: NextRequest) {
-    try {
-        // Get auth token from cookies
-        const token = request.cookies.get('auth-token')?.value
+export const GET = withErrorHandling(async (request: NextRequest): Promise<NextResponseType> => {
+    // Get auth token from cookies
+    const token = request.cookies.get('auth-token')?.value
 
-        if (!token) {
-            return NextResponse.json({ user: null }, { status: 401 })
-        }
-
-        // Mock session - in production, verify JWT token
-        return NextResponse.json(
-            {
-                user: {
-                    id: 'user-1',
-                    email: 'user@example.com',
-                    name: 'User Name',
-                },
-                token: token,
-            },
-            { status: 200 }
-        )
-    } catch (_error) {
-        return NextResponse.json(
-            { error: 'Failed to fetch session' },
-            { status: 500 }
-        )
+    if (!token) {
+        throw ApiError.unauthorized('No session found')
     }
-}
+
+    // Mock session - in production, verify JWT token
+    return createSuccessResponse({
+        user: {
+            id: 'user-1',
+            email: 'user@example.com',
+            name: 'User Name',
+        },
+        token: token,
+    })
+});

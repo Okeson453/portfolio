@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 import { getBlogPost, getAllBlogPosts } from '@/lib/blog';
 import { siteConfig } from '@/lib/seo';
+import { generateBreadcrumbSchema } from '@/lib/schema';
+import { RelatedPosts } from '@/components/RelatedPosts';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -116,10 +118,28 @@ export default async function BlogPostPage({ params }: Props) {
     articleSection: post.category,
   };
 
+  // Breadcrumb schema for SEO — displays breadcrumb navigation in SERPs
+  const breadcrumbs = [
+    { name: 'Home', url: siteConfig.url },
+    { name: 'Blog', url: `${siteConfig.url}/blog` },
+    { name: post.category, url: `${siteConfig.url}/blog?category=${post.category}` },
+    { name: post.title, url: `${siteConfig.url}/blog/${slug}` },
+  ];
+  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <BlogPost slug={slug} />
+      <div className="max-w-2xl mx-auto px-4 py-8">
+        <RelatedPosts
+          currentSlug={slug}
+          currentTags={post.tags}
+          currentCategory={post.category}
+          limit={4}
+        />
+      </div>
     </>
   );
 }

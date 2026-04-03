@@ -1,46 +1,33 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { getSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/db';
+import { withErrorHandling, createSuccessResponse, ApiError } from '@/lib/api/errorHandler';
 
 export const runtime = 'edge';
 
-export async function GET() {
-    try {
-        const session = await getSession();
+export const GET = withErrorHandling(async (_req: NextRequest): Promise<NextResponse> => {
+    const session = await getSession();
 
-        if (!session) {
-            return NextResponse.json(
-                { error: 'Unauthorized' },
-                { status: 401 }
-            );
-        }
-
-        const user = await prisma.user.findUnique({
-            where: { id: session.userId },
-            select: {
-                id: true,
-                email: true,
-                name: true,
-                avatar: true,
-                emailVerified: true,
-                twoFactorEnabled: true,
-                createdAt: true,
-            },
-        });
-
-        if (!user) {
-            return NextResponse.json(
-                { error: 'User not found' },
-                { status: 404 }
-            );
-        }
-
-        return NextResponse.json({ user });
-    } catch (err) {
-        console.error('[/api/auth/me]', err);
-        return NextResponse.json(
-            { error: 'Failed to fetch user' },
-            { status: 500 }
-        );
+    if (!session) {
+        throw ApiError.unauthorized('Authentication required');
     }
-}
+
+    const user = await prisma.user.findUnique({
+        where: { id: session.userId },
+        select: {
+            id: true,
+            email: true,
+            name: true,
+            avatar: true,
+            emailVerified: true,
+            twoFactorEnabled: true,
+            createdAt: true,
+        },
+    });
+
+    if (!user) {
+        throw ApiError.notFound('User');
+    }
+
+    return createSuccessResponse({ user });
+});

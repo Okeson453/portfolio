@@ -1,6 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, type NextResponse as NextResponseType } from 'next/server';
 import { processScheduledPosts } from '@/lib/blog-scheduler';
 import { processScheduledShares } from '@/lib/social-media';
+import { withErrorHandling, createSuccessResponse, ApiError } from '@/lib/api/errorHandler';
 
 /**
  * GET /api/cron/blog-publish
@@ -8,46 +9,36 @@ import { processScheduledShares } from '@/lib/social-media';
  * 
  * Setup in vercel.json or call with: curl -H "Authorization: Bearer {CRON_SECRET}" https://yourdomain.com/api/cron/blog-publish
  */
-export async function GET(request: NextRequest) {
+export const GET = withErrorHandling(async (request: NextRequest): Promise<NextResponseType> => {
     // Verify the request is coming from a trusted source
     const authHeader = request.headers.get('authorization');
     const cronSecret = process.env.CRON_SECRET || process.env.VERCEL_AUTOMATION_BEARER_TOKEN;
 
     if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        throw ApiError.unauthorized('Invalid cron secret');
     }
 
-    try {
-        console.log('Starting scheduled blog post processing...');
-        await processScheduledPosts();
-        console.log('Completed scheduled blog post processing');
+    console.log('Starting scheduled blog post processing...');
+    await processScheduledPosts();
+    console.log('Completed scheduled blog post processing');
 
-        return NextResponse.json(
-            { message: 'Blog posts processed successfully', timestamp: new Date().toISOString() },
-            { status: 200 }
-        );
-    } catch (error) {
-        console.error('Cron job error:', error);
-        return NextResponse.json(
-            {
-                error: 'Failed to process scheduled posts',
-                details: error instanceof Error ? error.message : 'Unknown error',
-            },
-            { status: 500 }
-        );
-    }
-}
+    return createSuccessResponse({
+        message: 'Blog posts processed successfully',
+        timestamp: new Date().toISOString(),
+    });
+});
 
 /**
- * GET /api/cron/social-media-share
+ * POST /api/cron/social-media-share
  * Cron job to process scheduled social media shares
  */
-export async function POST(request: NextRequest) {
+export const POST = withErrorHandling(async (request: NextRequest): Promise<NextResponseType> => {
     const authHeader = request.headers.get('authorization');
     const cronSecret = process.env.CRON_SECRET || process.env.VERCEL_AUTOMATION_BEARER_TOKEN;
 
     if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        throw ApiError.unauthorized('Invalid cron secret');
+    }
     }
 
     try {

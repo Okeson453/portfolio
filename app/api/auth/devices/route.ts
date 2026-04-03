@@ -1,41 +1,31 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse, type NextResponse as NextResponseType } from 'next/server';
 import { getSession } from '@/lib/auth/session';
 import { prisma } from '@/lib/db';
+import { withErrorHandling, createSuccessResponse, ApiError } from '@/lib/api/errorHandler';
 
 export const runtime = 'edge';
 
-export async function GET() {
-    try {
-        const session = await getSession();
+export const GET = withErrorHandling(async (): Promise<NextResponseType> => {
+    const session = await getSession();
 
-        if (!session) {
-            return NextResponse.json(
-                { error: 'Unauthorized' },
-                { status: 401 }
-            );
-        }
-
-        const devices = await prisma.device.findMany({
-            where: { userId: session.userId },
-            select: {
-                id: true,
-                userAgent: true,
-                ipAddress: true,
-                lastActivityAt: true,
-                createdAt: true,
-            },
-            orderBy: { lastActivityAt: 'desc' },
-        });
-
-        return NextResponse.json({ devices });
-    } catch (err) {
-        console.error('[/api/auth/devices GET]', err);
-        return NextResponse.json(
-            { error: 'Failed to fetch devices' },
-            { status: 500 }
-        );
+    if (!session) {
+        throw ApiError.unauthorized('Authentication required');
     }
-}
+
+    const devices = await prisma.device.findMany({
+        where: { userId: session.userId },
+        select: {
+            id: true,
+            userAgent: true,
+            ipAddress: true,
+            lastActivityAt: true,
+            createdAt: true,
+        },
+        orderBy: { lastActivityAt: 'desc' },
+    });
+
+    return createSuccessResponse({ devices });
+});
 
 export async function DELETE(req: NextRequest) {
     try {

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { projects } from '@/lib/projectsData';
 import { siteConfig } from '@/lib/seo';
+import { generateBreadcrumbSchema } from '@/lib/schema';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -64,6 +65,14 @@ export default async function ProjectPage({ params }: Props) {
     notFound();
   }
 
+  // Breadcrumb schema for SEO — displays breadcrumb navigation in SERPs
+  const breadcrumbs = [
+    { name: 'Home', url: siteConfig.url },
+    { name: 'Projects', url: `${siteConfig.url}/projects` },
+    { name: project.title, url: `${siteConfig.url}/projects/${slug}` },
+  ];
+  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
+
   return (
     <>
       {/* 🔍 SoftwareApplication schema per project */}
@@ -91,6 +100,14 @@ export default async function ProjectPage({ params }: Props) {
               codeRepository: project.githubUrl,
             }),
           }),
+        }}
+      />
+
+      {/* 🔍 Breadcrumb schema for SERP breadcrumb display */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
         }}
       />
 

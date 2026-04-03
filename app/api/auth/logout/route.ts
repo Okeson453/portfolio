@@ -1,18 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { destroySession } from '@/lib/auth/session';
+import { withErrorHandling, createSuccessResponse } from '@/lib/api/errorHandler';
 
 export const runtime = 'edge';
 
-export async function POST(req: NextRequest) {
-  try {
-    await destroySession();
-
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error('[/api/auth/logout]', err);
-    return NextResponse.json(
-      { error: 'Logout failed' },
-      { status: 500 }
-    );
-  }
-}
+export const POST = withErrorHandling(async (_req: NextRequest): Promise<NextResponse> => {
+  await destroySession();
+  return createSuccessResponse({ success: true });
+});

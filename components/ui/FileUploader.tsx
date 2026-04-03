@@ -96,7 +96,11 @@ export function FileUploader({
                 <div className="space-y-3">
                     {preview && (
                         <div className="flex justify-center">
-                            <img src={preview} alt="Preview" className="h-48 w-48 rounded-lg object-cover" />
+                            <img 
+                              src={preview} 
+                              alt={`Preview of ${file.name} file — ${file.type}`} 
+                              className="h-48 w-48 rounded-lg object-cover" 
+                            />
                         </div>
                     )}
 

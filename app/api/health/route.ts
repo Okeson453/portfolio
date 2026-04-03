@@ -1,11 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { withErrorHandling, createSuccessResponse } from '@/lib/api/errorHandler';
 
 /**
  * GET /api/health
  * Health check endpoint for monitoring and deployment verification
  * Checks database, cache, and service connectivity
  */
-export async function GET() {
+export const GET = withErrorHandling(async (_req: NextRequest): Promise<NextResponse> => {
   try {
     const healthStatus = {
       status: 'healthy',
@@ -40,18 +41,17 @@ export async function GET() {
       (service) => service === 'degraded'
     );
 
-    return NextResponse.json(healthStatus, {
-      status: hasErrors ? 503 : 200,
-    });
+    return createSuccessResponse(healthStatus, hasErrors ? 503 : 200);
   } catch (error) {
     console.error('Health check failed:', error);
+    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
       {
         status: 'unhealthy',
         timestamp: new Date().toISOString(),
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: errorMsg,
       },
       { status: 503 }
     );
   }
-}
+});

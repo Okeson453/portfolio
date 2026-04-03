@@ -145,14 +145,16 @@ describe('Projects Component', () => {
         const [selectedCategory, setSelectedCategory] = React.useState('all');
         return (
           <div>
-            <div>
+            <div role="tablist" aria-label="Project categories">
               <button
+                role="tab"
                 onClick={() => setSelectedCategory('all')}
                 aria-selected="true"
               >
                 All
               </button>
               <button
+                role="tab"
                 onClick={() => setSelectedCategory('frontend')}
                 aria-selected="false"
               >

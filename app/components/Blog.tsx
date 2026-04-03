@@ -58,70 +58,85 @@ export function Blog() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {blogPosts.map((post) => (
             <article
               key={post.id}
-              className="group"
+              className="group flex flex-col h-full"
             >
               <Link href={`/blog/${post.slug}`}>
-                <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 group-hover:border-blue-500/50 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/10 h-full">
-                  {/* Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20" />
+                <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 group-hover:border-blue-500/50 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/10 flex flex-col h-full">
+                  {/* Image — 16:9 aspect ratio for consistency */}
+                  <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-800">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 z-10" />
                     <Image
                       src={post.image}
                       alt={post.title}
                       fill
                       unoptimized
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-xs font-medium">
+                    <div className="absolute top-4 left-4 z-20">
+                      <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white text-xs font-medium hover:bg-black/80 transition-colors">
                         {post.category}
                       </span>
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="p-6">
-                    <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  {/* Content — Flex column ensures full height usage */}
+                  <div className="p-6 flex flex-col flex-1">
+                    {/* Metadata */}
+                    <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-4 flex-wrap">
                       <div className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        <span>{post.date}</span>
+                        <Calendar className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                        <time dateTime={post.date} className="whitespace-nowrap">
+                          {new Date(post.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                          })}
+                        </time>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        <span>{post.readTime} read</span>
+                        <Clock className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                        <span className="whitespace-nowrap">{post.readTime} read</span>
                       </div>
                       <div className="flex items-center gap-1 ml-auto">
-                        <Eye className="h-4 w-4" />
-                        <span>{post.views}</span>
+                        <Eye className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                        <span className="whitespace-nowrap">{post.views}</span>
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors line-clamp-2">
+                    {/* Title */}
+                    <h3 className="text-lg md:text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors line-clamp-2">
                       {post.title}
                     </h3>
 
-                    <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                    {/* Excerpt — Responsive clamp: 2 lines mobile, 3 lines desktop */}
+                    <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 md:line-clamp-3 flex-1">
                       {post.excerpt}
                     </p>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {post.tags.map((tag) => (
+                    <div className="flex flex-wrap gap-2 mb-6 mt-auto">
+                      {post.tags.slice(0, 2).map((tag) => (
                         <span
                           key={tag}
-                          className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs"
+                          className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium transition-colors hover:bg-blue-100 dark:hover:bg-blue-900/30"
                         >
-                          <Tag className="h-3 w-3" />
+                          <Tag className="h-3 w-3 flex-shrink-0" aria-hidden="true" />
                           {tag}
                         </span>
                       ))}
+                      {post.tags.length > 2 && (
+                        <span className="text-xs text-gray-500 dark:text-gray-400 px-2 py-1">
+                          +{post.tags.length - 2} more
+                        </span>
+                      )}
                     </div>
 
-                    {/* Read More */}
+                    {/* Read More Link */}
                     <div className="flex items-center text-blue-500 font-medium group/link">
                       <span>Read article</span>
                       <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
