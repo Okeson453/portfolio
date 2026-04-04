@@ -12,7 +12,7 @@ If you discover a security vulnerability in this project, please report it respo
 
 **Do NOT open a public GitHub issue.**
 
-Email: [your-email@yourdomain.com]
+Email: okeson453@gmail.com
 Response time: Within 48 hours
 
 Please include:
