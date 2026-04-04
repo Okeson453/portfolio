@@ -133,11 +133,11 @@
     },
     "lint-staged": {
         "*.{ts,tsx}": [
-            "eslint --fix --cache --max-warnings=5",
+            "eslint --fix --cache --max-warnings=0",
             "prettier --write"
         ],
         "*.{js,mjs,cjs}": [
-            "eslint --fix --cache",
+            "eslint --fix --cache --max-warnings=0",
             "prettier --write"
         ],
         "*.{json,md,mdx,yaml,yml}": [

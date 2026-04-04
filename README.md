@@ -214,7 +214,7 @@ npm run dev:safe
 All automated at commit time:
 - ✅ ESLint fixes applied (max 5 warnings allowed)
 - ✅ Prettier formatting applied
-- ⚠️ TypeScript type check (non-blocking, warnings shown)
+- ✅ TypeScript type check (blocking, failures prevent merge)
 - ✅ Full test suite required before push
 
 ### If Something Breaks
