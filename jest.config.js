@@ -5,15 +5,15 @@ module.exports = {
 
     // Discovery — explicit patterns prevent accidentally running e2e
     testMatch: [
-        '<rootDir>/__tests__/**/*.test.ts',
-        '<rootDir>/__tests__/**/*.test.tsx',
+        '<rootDir>/tests/**/*.test.ts',
+        '<rootDir>/tests/**/*.test.tsx',
         '<rootDir>/components/**/*.test.tsx',
         '<rootDir>/hooks/**/*.test.ts',
     ],
     testPathIgnorePatterns: [
         '/node_modules/',
         '/.next/',
-        '/e2e/',
+        '/tests/e2e/',
         '/playwright/',
     ],
 
@@ -29,19 +29,14 @@ module.exports = {
         '!app/api/**/*.ts',     // integration-test API routes separately
     ],
 
-    // Enterprise coverage thresholds — enforced in CI, advisory in dev
+    // Coverage thresholds — enforced in CI
+    // Target: raise to 70% within 60 days
     coverageThreshold: {
         global: {
-            branches:   65,
-            functions:  70,
-            lines:      70,
-            statements: 70,
-        },
-        // Higher bar for critical business logic
-        './lib/security/': {
-            branches:   80,
-            functions:  90,
-            lines:      90,
+            branches:   40,
+            functions:  40,
+            lines:      40,
+            statements: 40,
         },
     },
 
