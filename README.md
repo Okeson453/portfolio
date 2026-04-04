@@ -449,10 +449,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **Email**: okeson453@gmail.com
+- **Email**: [okeson453@gmail.com](mailto:okeson453@gmail.com)
 - **GitHub**: [@okeson453](https://github.com/okeson453)
-- **LinkedIn**: (coming soon — add your profile URL)
-- **Website**: Coming soon — deploying to Vercel
+- **LinkedIn**: [Visit Profile](https://linkedin.com/in/okeson453)
+- **Website**: [okeson.dev](https://okeson.dev) (Vercel deployment)
 
 ---
 

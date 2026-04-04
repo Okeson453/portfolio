@@ -26,39 +26,42 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { verifyAuth } from '@/lib/auth/tokens'
 import { rateLimit, RATE_LIMIT_CONFIG } from '@/lib/security/rateLimiter'
+import crypto from 'crypto'
 
 // ===== SECURITY HEADERS =====
 // Hardened CSP: No unsafe-inline, no unsafe-eval. Strict directives.
-const CSP = [
-    "default-src 'self'",
-    // Script: No unsafe-eval, limited external sources
-    "script-src 'self' https://cdn.jsr.in https://cdn.sentry-cdn.com https://cdn.vercel-insights.com",
-    // Style: Only from self (Tailwind) and trusted CDN
-    "style-src 'self' https://fonts.googleapis.com",
-    // Images: Allow self, data URLs for optimized images, https only
-    "img-src 'self' data: blob: https:",
-    // Fonts: Google Fonts + gstatic
-    "font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com",
-    // Connect: self + https, websockets for real-time, Sentry + analytics
-    "connect-src 'self' https: wss: https://*.sentry.io https://posthog.com https://vitals.vercel-insights.com",
-    // Media: Self only
-    "media-src 'self'",
-    // Frame: Prevent clickjacking
-    "frame-ancestors 'none'",
-    // Base URI: Self only
-    "base-uri 'self'",
-    // Form: Self only
-    "form-action 'self'",
-    // Upgrade all insecure requests to HTTPS
-    "upgrade-insecure-requests",
-].join('; ')
+// NOTE: CSP with 'nonce-' is dynamically set per-request in middleware()
+function generateCSP(nonce: string): string {
+    return [
+        "default-src 'self'",
+        // Script: No unsafe-eval, nonce for inline scripts (hydration), limited external sources
+        `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://cdn.jsr.in https://cdn.sentry-cdn.com https://cdn.vercel-insights.com`,
+        // Style: Only from self (Tailwind) and trusted CDN, allow nonce for inline styles
+        `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
+        // Images: Allow self, data URLs for optimized images, https only
+        "img-src 'self' data: blob: https:",
+        // Fonts: Google Fonts + gstatic
+        "font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com",
+        // Connect: self + https, websockets for real-time, Sentry + analytics
+        "connect-src 'self' https: wss: https://*.sentry.io https://posthog.com https://vitals.vercel-insights.com",
+        // Media: Self only
+        "media-src 'self'",
+        // Frame: Prevent clickjacking
+        "frame-ancestors 'none'",
+        // Base URI: Self only
+        "base-uri 'self'",
+        // Form: Self only
+        "form-action 'self'",
+        // Upgrade all insecure requests to HTTPS
+        "upgrade-insecure-requests",
+    ].join('; ')
+}
 
 // ===== HELPER FUNCTION: Apply Security Headers =====
-function applySecurityHeaders(response: NextResponse): void {
-    response.headers.set('Content-Security-Policy', CSP)
+function applySecurityHeaders(response: NextResponse, csp: string): void {
+    response.headers.set('Content-Security-Policy', csp)
     response.headers.set('X-Content-Type-Options', 'nosniff')
     response.headers.set('X-Frame-Options', 'DENY')
-    response.headers.set('X-XSS-Protection', '1; mode=block')
     response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
     response.headers.set('X-DNS-Prefetch-Control', 'on')
     response.headers.set(
@@ -73,6 +76,11 @@ function applySecurityHeaders(response: NextResponse): void {
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
+
+    // ===== GENERATE NONCE FOR CSP =====
+    // Create a cryptographically secure random nonce per request
+    const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
+    const csp = generateCSP(nonce)
 
     // ===== HTTPS ENFORCEMENT (Production) =====
     if (
@@ -142,7 +150,8 @@ export async function middleware(request: NextRequest) {
 
             // Add security headers
             const response = NextResponse.next()
-            applySecurityHeaders(response)
+            response.headers.set('x-nonce', nonce)
+            applySecurityHeaders(response, csp)
 
             return response
         } catch (_error) {
@@ -152,7 +161,8 @@ export async function middleware(request: NextRequest) {
 
     // ===== ADD SECURITY HEADERS TO ALL ROUTES =====
     const response = NextResponse.next()
-    applySecurityHeaders(response)
+    response.headers.set('x-nonce', nonce)
+    applySecurityHeaders(response, csp)
 
     // ===== CACHE HEADERS =====
     // Static assets: 1 year immutable cache

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { SecurityProvider } from '@/components/providers/SecurityProvider';
@@ -124,6 +125,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // CSP nonce from middleware — must be read server-side
+  const nonce = ((headers() as any).get('x-nonce') ?? '') as string;
+
   return (
     <html
       lang="en"
@@ -253,6 +257,7 @@ export default function RootLayout({
         {/* 🔍 Person Schema — Helps Google understand identity for personal site ranking */}
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
@@ -273,6 +278,7 @@ export default function RootLayout({
         {/* 🔍 WebSite Schema — Helps Google understand your site globally */}
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
