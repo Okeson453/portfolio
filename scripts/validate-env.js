@@ -16,9 +16,30 @@ const WARNINGS = [
     ['OPENAI_API_KEY', 'AI features disabled'],
 ];
 
+// Secrets MUST NEVER be prefixed with NEXT_PUBLIC_
+const SECRETS_THAT_MUST_NOT_BE_PUBLIC = [
+    'JWT_SECRET',
+    'ENCRYPTION_KEY',
+    'DATABASE_URL',
+    'RESEND_API_KEY',
+    'OPENAI_API_KEY',
+    'UPSTASH_REDIS_REST_TOKEN',
+    'CLOUDFLARE_TURNSTILE_SECRET_KEY',
+    'SENTRY_AUTH_TOKEN',
+];
+
 let hasError = false;
 
 console.log('\n🔍 Validating environment variables...\n');
+
+// Check for accidental public secrets
+for (const secret of SECRETS_THAT_MUST_NOT_BE_PUBLIC) {
+    if (process.env[`NEXT_PUBLIC_${secret}`]) {
+        console.error(`  ❌ SECURITY: ${secret} is exposed as NEXT_PUBLIC_${secret}!`);
+        console.error(`     → Remove NEXT_PUBLIC_ prefix from secret variables`);
+        hasError = true;
+    }
+}
 
 // Check required
 for (const key of REQUIRED) {
