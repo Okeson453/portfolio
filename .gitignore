@@ -404,6 +404,31 @@ prisma/migrations/*/migration_lock.toml
 
 # GraphQL
 schema.graphql
+
+
+# ============================================================================
+# SECTION 18: AI SESSION ARTIFACTS (DO NOT COMMIT)
+# ============================================================================
+# AI generated documentation files — these are temporary and session-specific
+# Never commit these to prevent clutter and merge conflicts
+
+# AI session summary & guide documents
+*_SUMMARY.md
+*_GUIDE.md
+*_CHECKLIST.md
+*_STATUS.md
+*_REPORT.md
+PHASE_*.md
+TASK_*.md
+CRITICAL_*.md
+ENTERPRISE_*.md
+00_*.md
+
+# Except legitimate documentation (keep these)
+!README.md
+!CHANGELOG.md
+!CONTRIBUTING.md
+!docs/**/*.md
 *.generated.ts
 *.generated.js
 
