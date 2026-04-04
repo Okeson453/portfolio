@@ -1,3 +1,27 @@
+/**
+ * Next.js Middleware
+ * 
+ * DEPLOYMENT: Runs on ALL routes (Edge runtime on Vercel)
+ * RESPONSIBILITIES:
+ * - HTTPS enforcement
+ * - Rate limiting (Redis + in-memory fallback)
+ * - JWT authentication for protected routes
+ * - Security headers (CSP, HSTS, X-Frame-Options, etc.)
+ * - Cache control headers
+ * 
+ * REQUIRED ENVIRONMENT VARIABLES:
+ * - UPSTASH_REDIS_REST_URL (rate limiting)
+ * - UPSTASH_REDIS_REST_TOKEN (rate limiting)
+ * - JWT_SECRET (authentication)
+ * 
+ * PROTECTED ROUTES:
+ * - /dashboard/* (requires authentication)
+ * - /settings/* (requires authentication)
+ * - /admin/* (requires admin role)
+ * 
+ * See docs/DEPLOYMENT.md for middleware configuration details.
+ */
+
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { verifyAuth } from '@/lib/auth/tokens'
@@ -116,12 +140,8 @@ export async function middleware(request: NextRequest) {
                 return NextResponse.redirect(new URL('/dashboard', request.url))
             }
 
-            // Add user info to headers
+            // Add security headers
             const response = NextResponse.next()
-            response.headers.set('X-User-Id', payload.userId)
-            response.headers.set('X-User-Role', payload.role)
-
-            // Apply security headers
             applySecurityHeaders(response)
 
             return response

@@ -1,3 +1,15 @@
+/**
+ * Next.js Configuration
+ * 
+ * DEPLOYMENT: Vercel (primary)
+ * - Environment variables must be set in Vercel dashboard
+ * - See docs/ENVIRONMENT.md for all required variables
+ * - See docs/DEPLOYMENT.md for deployment steps
+ * 
+ * BUILD OUTPUT: Standalone (for Docker, if used)
+ * RUNTIME: Node.js 20.x
+ */
+
 /** @type {import('next').NextConfig} */
 const isDev = process.env.NODE_ENV === 'development';
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -345,70 +357,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 // ===== PWA CONFIGURATION =====
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: false,
-  sw: 'sw.js',
-  cacheStartUrl: true,
-  reloadOnOnline: true,
-  dynamicStartUrl: false,
-  dynamicStartUrlRedirect: '/offline',
-  fallbacks: {
-    image: '/images/placeholder.png',
-    document: '/offline.html',
-  },
-  publicExcludes: ['!noprecache/**/*'],
-  buildExcludes: [/middleware_manifest\.json$/],
-  cacheOnFrontEndNav: true,
-  aggressiveFrontEndNavCaching: true,
-  runtimeCaching: [
-    {
-      urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
-      handler: 'CacheFirst',
-      options: {
-        cacheName: 'google-fonts',
-        expiration: {
-          maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
-          maxEntries: 30,
-        },
-      },
-    },
-    {
-      urlPattern: /^https:\/\/api\/.*\$/i,
-      handler: 'NetworkFirst',
-      options: {
-        cacheName: 'api-cache',
-        expiration: {
-          maxAgeSeconds: 60 * 5, // 5 minutes
-          maxEntries: 50,
-        },
-        networkTimeoutSeconds: 10,
-      },
-    },
-    {
-      urlPattern: /\.(js|css|ts|tsx)$/i,
-      handler: 'StaleWhileRevalidate',
-      options: {
-        cacheName: 'static-resources',
-        expiration: {
-          maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
-        },
-      },
-    },
-    {
-      urlPattern: /\.(?:png|gif|jpg|jpeg|webp|svg)$/i,
-      handler: 'CacheFirst',
-      options: {
-        cacheName: 'images',
-        expiration: {
-          maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
-          maxEntries: 60,
-        },
-      },
-    },
-  ],
-})
+// PWA support temporarily disabled. To re-enable:
+// 1. Install: npm install @ducanh2912/next-pwa
+// 2. Uncomment PWA config below
+// const withPWA = require('@ducanh2912/next-pwa')({...})
+// 3. Change final export to: module.exports = withBundleAnalyzer(withPWA(nextConfig))
 
-module.exports = withBundleAnalyzer(withPWA(nextConfig))
+module.exports = withBundleAnalyzer(nextConfig)
