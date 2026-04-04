@@ -21,10 +21,21 @@ Brief description of changes.
 - [ ] Keyboard navigation works for interactive elements
 - [ ] Color contrast meets WCAG AA (4.5:1 minimum)
 
+## Security
+- [ ] No secrets committed (.env, API keys, credentials)
+- [ ] No new `NEXT_PUBLIC_` variables prefixed secrets
+- [ ] Sensitive data encrypted at rest (PII, tokens)
+- [ ] Rate limiting applied to new API endpoints
+- [ ] Input validation + sanitization via Zod/DOMPurify
+
+## Updates
+- [ ] `scripts/validate-env.js` updated (if env validation changes)
+- [ ] `SETUP.md` updated (if setup flow changes)
+- [ ] `README.md` updated (if feature/docs change)
+
 ## Screenshots (if UI changes)
-Before / After
-- [ ] `scripts/validate-env.js` updated
-- [ ] `SETUP.md` updated if setup flow changes
+Before / After  
+_Paste screenshots here_
 
 ### If modifying database schema
 - [ ] Migration created: `npm run db:migrate`
