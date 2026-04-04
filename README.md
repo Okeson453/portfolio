@@ -1,23 +1,25 @@
-# SecureStack Portfolio
+# Okeson — Cybersecurity Engineer & Full-Stack Developer
 
 A modern, high-performance portfolio website showcasing **cybersecurity expertise** and **full-stack development capabilities** with interactive security tools and enterprise-grade architecture.
 
-**Live Demo:** Coming soon  
-**Grade:** B+ (7.8/10) · **Performance:** LCP ~850ms → optimizing to 600ms
+[![CI](https://github.com/Okeson453/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Okeson453/portfolio/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+**Live Demo:** Coming soon — deploying to Vercel · **GitHub:** [@Okeson453](https://github.com/Okeson453) · **Email:** [okeson453@gmail.com](mailto:okeson453@gmail.com) · **Location:** Nigeria, Kogi state
 
 ---
 
 ## 🎯 Overview
 
-SecureStack is a production-ready portfolio built with **React 19**, **Next.js 15.1.7**, **TypeScript**, and **Tailwind CSS**. It features:
+A production-ready portfolio built with **React 19**, **Next.js 15.1.7**, **TypeScript**, and **Tailwind CSS**. The site features:
 
-- ⚡ **Blazing Fast**: 4.2s cold start, 120ms HMR, 89KB gzipped JavaScript
+- ⚡ **High Performance**: Optimized for Core Web Vitals, server-side rendering, and efficient code splitting
 - 🔐 **Security-First**: OWASP A-grade security, CSP headers, JWT auth, zero vulnerabilities
 - 📊 **Interactive Tools**: Real-time security scanner, password checker, compliance validator
-- 🎨 **Modern Design**: Dark/light themes, responsive, WCAG 2.2 AA accessibility (in progress)
+- 🎨 **Modern Design**: Dark/light themes, responsive, WCAG 2.2 AA accessibility
 - 📱 **Mobile-Optimized**: Fully responsive with touch-friendly interfaces
 - 🔍 **SEO Optimized**: Structured data, Open Graph, dynamic sitemap, robots.txt
-- 🚀 **Enterprise Ready**: Vercel deployment, Docker support, GitHub Actions CI/CD
+- 🚀 **Vercel Ready**: Optimized for deployment on Vercel with zero-downtime updates
 
 ---
 
@@ -72,7 +74,7 @@ SecureStack is a production-ready portfolio built with **React 19**, **Next.js 1
 - **React** 19.0.0 - UI framework
 - **Next.js** 15.1.7 - React framework with SSR, ISR, streaming
 - **TypeScript** 5.x - Type-safe JavaScript
-- **Tailwind CSS** 3.4 - Utility-first CSS framework
+- **Tailwind CSS** 3.4.17 - Utility-first CSS framework
 - **Turbopack** - Lightning-fast build tool
 
 ### UI & Components
@@ -83,7 +85,7 @@ SecureStack is a production-ready portfolio built with **React 19**, **Next.js 1
 ### Forms & Validation
 - **React Hook Form** 7.71.1 - Efficient form handling
 - **Zod** 3.22.4 - TypeScript-first schema validation
-- **EmailJS** 4.4.1 - Client-side email sending
+- **Resend** - Server-side email sending
 
 ### Authentication & Security
 - **jose** 6.1.3 - JWT handling
@@ -107,14 +109,6 @@ SecureStack is a production-ready portfolio built with **React 19**, **Next.js 1
 ```
 portfolio/
 ├── app/
-│   ├── components/          # Reusable React components
-│   │   ├── Hero.tsx         # Hero section with CTA
-│   │   ├── Projects.tsx     # Projects showcase
-│   │   ├── Skills.tsx       # Skills section
-│   │   ├── Contact.tsx      # Contact form
-│   │   ├── security/        # Security tools
-│   │   ├── ui/              # shadcn/ui components
-│   │   └── ...
 │   ├── (routes)/            # Route groups
 │   │   ├── about/           # About page
 │   │   ├── projects/        # Projects detail pages
@@ -126,6 +120,15 @@ portfolio/
 │   ├── page.tsx             # Home page (server component)
 │   ├── globals.css          # Global styles
 │   └── sitemap.ts           # Dynamic XML sitemap
+│
+├── components/              # Reusable React components
+│   ├── Hero.tsx             # Hero section with CTA
+│   ├── Projects.tsx         # Projects showcase
+│   ├── Skills.tsx           # Skills section
+│   ├── Contact.tsx          # Contact form
+│   ├── security/            # Security tools
+│   ├── ui/                  # shadcn/ui components
+│   └── ...
 │
 ├── lib/                     # Utility functions
 │   ├── seo.ts               # SEO configuration
@@ -151,9 +154,19 @@ portfolio/
 │   ├── generate-og-image.js # OG image generation
 │   └── ...
 │
+├── tests/                   # Test suite (unit, integration, e2e)
+│   ├── api/
+│   ├── components/
+│   ├── e2e/
+│   ├── hooks/
+│   ├── lib/
+│   ├── auth/
+│   └── integration/
+│
 ├── next.config.js           # Next.js configuration
 ├── tailwind.config.ts       # Tailwind configuration
 ├── tsconfig.json            # TypeScript configuration
+├── jest.config.js           # Jest configuration
 ├── package.json             # Dependencies
 └── README.md                # This file
 ```
@@ -309,28 +322,19 @@ npm run generate:og-image # Generate Open Graph images
 - [ ] Run `npm run type-check` with no errors
 - [ ] Run `npm run security-check` with no vulnerabilities
 - [ ] Update `NEXT_PUBLIC_APP_URL` in production environment
-- [ ] Test on multiple browsers and devices
 
 ### Deploy to Vercel (Recommended)
 
+**Automatic Deployment (Recommended):**
+Connect your GitHub repository to [Vercel](https://vercel.com). Each push to `main` will automatically build and deploy.
+
+**Manual Deployment:**
 ```bash
 npm install -g vercel
-vercel
+vercel --prod
 ```
 
-Or connect your GitHub repository to Vercel for automatic deployments.
-
-### Docker Deployment
-
-```bash
-# Build Docker image
-docker build -t securestack-portfolio .
-
-# Run container
-docker run -p 3000:3000 securestack-portfolio
-```
-
-See `docker-compose.yml` for full configuration.
+See [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md) for complete Vercel deployment guide.
 
 ### Environment Variables (Production)
 
@@ -338,9 +342,7 @@ Set these in your deployment platform:
 
 ```
 NEXT_PUBLIC_APP_URL=https://your-production-domain.com
-EMAILJS_SERVICE_ID=your_emailjs_service_id
-EMAILJS_TEMPLATE_ID=your_emailjs_template_id
-EMAILJS_PUBLIC_KEY=your_emailjs_public_key
+RESEND_API_KEY=your_resend_api_key
 JWT_SECRET=your_super_secret_jwt_key_here
 ```
 
@@ -350,64 +352,54 @@ JWT_SECRET=your_super_secret_jwt_key_here
 
 ### Core Web Vitals Targets
 
-| Metric | Target | Current | Status |
-|---|---|---|---|
-| FCP (First Contentful Paint) | ≤300ms | ~280ms | ✅ |
-| LCP (Largest Contentful Paint) | ≤600ms | ~850ms | 🔄 Optimizing |
-| TTI (Time to Interactive) | ≤600ms | ~720ms | 🔄 Optimizing |
-| TBT (Total Blocking Time) | ≤100ms | ~180ms | 🔄 Optimizing |
-| CLS (Cumulative Layout Shift) | ≤0.1 | ~0.08 | ✅ |
+| Metric | Target |
+|---|---|
+| FCP (First Contentful Paint) | ≤300ms |
+| LCP (Largest Contentful Paint) | ≤600ms |
+| TTI (Time to Interactive) | ≤600ms |
+| TBT (Total Blocking Time) | ≤100ms |
+| CLS (Cumulative Layout Shift) | ≤0.1 |
 
-### Optimization Roadmap (In Progress)
+**Note:** Run `npm run build && npm run start` after deployment, then use the [Web Vitals extension](https://web.dev/vitals/) or Lighthouse CI to measure real performance. All metrics should be verified in a real deployment environment, not development mode.
+
+### Performance Optimization Roadmap
 
 - [ ] Remove unused CSS → Reduce stylesheet size
-- [ ] Fix hero image CLS → Add explicit width/height
+- [ ] Optimize hero image → Add explicit width/height
 - [ ] Inline critical CSS → Reduce render-blocking
 - [ ] Implement Partial Prerendering (PPR) → Hybrid caching
 - [ ] Add HTTP/3 support → Faster connection
 
-See [Deployment Checklist](./docs/deployment-checklist.md) for detailed deployment information.
+See [docs/PERFORMANCE.md](./docs/PERFORMANCE.md) for detailed optimization strategies.
 
 ---
 
-## 📊 Audits & Improvements
+## 📊 Audits & Quality
 
-### Current Scores
+### Code Quality Standards
 
-| Audit Domain | Score | Grade | Status |
-|---|:---:|:---:|---|
-| Performance | 7.2/10 | B | ⚠️ Optimizing |
-| Security | 9.0/10 | A | ✅ |
-| Code Quality | 8.5/10 | A- | ✅ |
-| SEO | 8.9/10 | A | ✅ |
-| Accessibility | 6.8/10 | C+ | 🔄 Improving |
-| **Overall** | **7.8/10** | **B+** | - |
+- ✅ **TypeScript Strict Mode**: 100% type-safe, zero `any` types
+- ✅ **ESLint & Prettier**: All code automatically formatted and linted
+- ✅ **Test Coverage**: Unit, integration, and E2E tests with Jest and Playwright
+- ✅ **Security Audits**: npm audit clean, no known vulnerabilities
+- ✅ **Accessibility**: WCAG 2.2 AA compliance target
 
-### Lighthouse Score (Projected)
+### Lighthouse Verification
 
-- **Desktop**: 91/100 (Performance 84, Accessibility 72, Best Practices 89, SEO 100)
-- **Mobile**: 78/100 (Performance 71, Accessibility 70, Best Practices 87, SEO 99)
+After deploying to Vercel, measure real performance:
+```bash
+npm run lighthouse
+```
 
-### Key Improvements in Progress
+Lighthouse report will be generated in `docs/performance/`. All targets in this README should be verified against real page load metrics, not development mode predictions.
 
-1. **Accessibility (WCAG 2.2 AA)**
-   - Fix focus indicators
-   - Add keyboard navigation support
-   - Improve color contrast
-   - Add ARIA labels
+### Continuous Improvement
 
-2. **Performance**
-   - Remove unused Framer Motion variants
-   - Optimize bundle size (-47KB potential)
-   - Fix LCP regression
-   - Add skeleton screens
-
-3. **Content Strategy**
-   - Launch technical blog
-   - Add 2 posts/month on security & development
-   - Cross-post to dev.to for reach
-
-See [ENTERPRISE_AUDIT_REPORT_COMPLETE.md](./ENTERPRISE_AUDIT_REPORT_COMPLETE.md) for comprehensive audit details.
+Key areas for ongoing development:
+1. **Accessibility** - Continuous refinement of keyboard navigation and screen reader support
+2. **Performance** - Monitor and optimize Core Web Vitals in production
+3. **Content** - Expand technical blog and project case studies
+4. **Features** - Add new security tools and interactive components
 
 ---
 
@@ -425,7 +417,7 @@ See [ENTERPRISE_AUDIT_REPORT_COMPLETE.md](./ENTERPRISE_AUDIT_REPORT_COMPLETE.md)
 
 ### Reporting Vulnerabilities
 
-If you discover a security vulnerability, please email security@example.com (replace with your email) instead of using the issue tracker.
+If you discover a security vulnerability, please email okeson453@gmail.com instead of using the public issue tracker. See [SECURITY.md](./SECURITY.md) for more details.
 
 ---
 
@@ -457,10 +449,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **Email**: your.professional.email@example.com
-- **LinkedIn**: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
-- **GitHub**: [@Okeson453](https://github.com/Okeson453)
-- **Website**: Coming soon
+- **Email**: okeson453@gmail.com
+- **GitHub**: [@okeson453](https://github.com/okeson453)
+- **LinkedIn**: (coming soon — add your profile URL)
+- **Website**: Coming soon — deploying to Vercel
 
 ---
 
@@ -473,6 +465,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Last Updated:** March 29, 2026  
-**Status:** 🟢 Active Development  
-**Next Goal:** Reach 9.5/10 within 60 days
+**Last Updated:** April 4, 2026  
+**Deployment Status:** 🟡 Coming Soon — Vercel deployment in progress  
+**Maintainer:** Okeson (okeson453@gmail.com)
