@@ -173,9 +173,13 @@ export async function middleware(request: NextRequest) {
     else if (/\.(png|jpg|jpeg|gif|webp|avif|svg)$/.test(pathname)) {
         response.headers.set('Cache-Control', 'public, max-age=31536000, immutable')
     }
-    // API responses: 60 seconds with stale-while-revalidate
+    // Authenticated API responses: No cache (private user data)
+    else if (isProtectedRoute) {
+        response.headers.set('Cache-Control', 'private, no-store, must-revalidate')
+    }
+    // Public API responses: Short cache with revalidation
     else if (pathname.startsWith('/api/')) {
-        response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+        response.headers.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=300')
     }
     // HTML pages: No cache, but allow revalidation
     else if (pathname.endsWith('.html') || !pathname.includes('.')) {
